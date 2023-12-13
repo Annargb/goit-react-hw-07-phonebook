@@ -2,14 +2,19 @@ import { ContactsList } from 'components/ContactsList-component/ContactsList';
 import { Filter } from 'components/Filter-component/Filter';
 import { InfoMessage } from 'components/InfoMessage-component/InfoMessage';
 import { useSelector } from 'react-redux';
-import { getContacts, selectVisibleContacts } from 'redux/selectors';
+import {
+  selectContacts,
+  selectVisibleContacts,
+  selectIsLoading,
+} from 'redux/selectors';
 
 export const GroupComponent = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
   const visibleContacts = useSelector(selectVisibleContacts);
 
   const variantOfText = () => {
-    if (!contacts.length) {
+    if (!contacts.length && !isLoading) {
       return (
         <InfoMessage text="There are no contacts here 😲" $variant="primary" />
       );
